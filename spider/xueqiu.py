@@ -3,7 +3,7 @@ import json
 import requests
 import re
 import time
-import header
+import utils
 
 
 def fetch_industry_list():
@@ -11,7 +11,7 @@ def fetch_industry_list():
     获取雪球的申万行业分类
     :return: list[(code 行业代码: name 行业名称)]
     """
-    r = requests.get("https://xueqiu.com/hq", headers=header.html_header("xueqiu.com", "https://xueqiu.com/hq"))
+    r = requests.get("https://xueqiu.com/hq", headers=utils.html_header("xueqiu.com", "https://xueqiu.com/hq"))
     result = re.findall('data-level2code="(S.*?)">(.*?)</a>', r.text)
     # for code, name in result:
     #     print "%s: %s" % (code, name)
@@ -58,7 +58,7 @@ def fetch_stocks(ins_code):
     result = []
     while True:
         r = requests.get("https://xueqiu.com/service/v5/stock/screener/quote/list",
-                         headers=header.json_header("xueqiu.com", "https://xueqiu.com/hq"), params=params)
+                         headers=utils.json_header("xueqiu.com", "https://xueqiu.com/hq"), params=params)
         json_data = json.loads(r.text)
         if json_data["error_code"] != 0 or len(json_data["data"]["list"]) == 0:
             break
@@ -76,7 +76,7 @@ def fetch_stock_kline(symbol):
     """
     # 先访问页面获取cookie
     r1 = requests.get("https://xueqiu.com/S/SH600601",
-                      headers=header.html_header("xueqiu.com", "https://xueqiu.com/hq"))
+                      headers=utils.html_header("xueqiu.com", "https://xueqiu.com/hq"))
     params = {
          "symbol": symbol,
          "begin": int(round(time.time() * 1000)),
@@ -86,7 +86,7 @@ def fetch_stock_kline(symbol):
          "indicator": "kline,pe,pb,ps,pcf,market_capital,agt,ggt,balance"
     }
     r = requests.get("https://stock.xueqiu.com/v5/stock/chart/kline.json",
-                     headers=header.json_header("xueqiu.com", "https://xueqiu.com/S/%s" % symbol),
+                     headers=utils.json_header("xueqiu.com", "https://xueqiu.com/S/%s" % symbol),
                      params=params, cookies=r1.cookies)
     return json.loads(r.text)["data"]
 
@@ -94,7 +94,7 @@ def fetch_stock_kline(symbol):
 def fetch_stock_comment(symbol, start_time):
     # 先访问页面获取cookie
     r1 = requests.get("https://xueqiu.com/S/SH600601",
-                      headers=header.html_header("xueqiu.com", "https://xueqiu.com/hq"))
+                      headers=utils.html_header("xueqiu.com", "https://xueqiu.com/hq"))
     params = {
         "count": 10,
         "comment": 0,
@@ -108,7 +108,7 @@ def fetch_stock_comment(symbol, start_time):
     time_stamp = int(time.mktime(time.strptime(start_time, "%Y-%m-%d"))*1000)
     while True:
         r = requests.get("https://xueqiu.com/statuses/search.json",
-                         headers=header.json_header("xueqiu.com", "https://xueqiu.com/S/%s" % symbol),
+                         headers=utils.json_header("xueqiu.com", "https://xueqiu.com/S/%s" % symbol),
                          params=params, cookies=r1.cookies)
         json_data = json.loads(r.text)
         if len(json_data["list"]) == 0:
