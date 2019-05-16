@@ -18,6 +18,24 @@ def fetch_industry_list():
     return result
 
 
+def fetch_industry_table():
+    """
+    获取同花顺行业一览表
+    :return: list[list[]]
+    每一项： 序号、板块、涨跌幅（%）、总成交量（万手）、总成交额（亿元）、净流入（亿元）、上涨家数、下跌家数、均价、领涨股、最新价、涨跌幅（%）
+    """
+    result = []
+    r = requests.get("http://q.10jqka.com.cn/thshy/",
+                     headers=utils.html_header("q.10jqka.com.cn", "http://q.10jqka.com.cn/"))
+    soup = BeautifulSoup(r.text, features="html.parser")
+    for tr in soup.find_all("tr"):
+        line = []
+        for td in tr.find_all("td"):
+            line.append(td.string)
+        result.append(line)
+    return result[1:]
+
+
 def fetch_industry_info(ins_code):
     """
     行业板块数据，包括今开、昨收、最低、最高、成交量(万手)、板块涨幅、涨幅排名、涨跌家数、资金净流入(亿)、成交额(亿)
