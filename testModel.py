@@ -16,36 +16,14 @@ class Block(BaseModel):
     class Meta:
         table_name = 'block'
 
-class Blockcommit(BaseModel):
+class Blockcomment(BaseModel):
     author = CharField(null=True)
     bcid = AutoField()
     blockid = CharField(null=True)
     detail = CharField(null=True)
 
     class Meta:
-        table_name = 'blockcommit'
-
-class Blockhistory(BaseModel):
-    beginprice = FloatField(null=True)
-    bhid = AutoField()
-    blockid = IntegerField(null=True)
-    blockname = CharField(null=True)
-    date = DateTimeField(null=True)
-    endprice = FloatField(null=True)
-    endpricebefore = FloatField(null=True)
-    increase = FloatField(null=True)
-    maxprice = FloatField(null=True)
-    minprice = FloatField(null=True)
-
-    class Meta:
-        table_name = 'blockhistory'
-
-class Blockk(BaseModel):
-    bkid = AutoField()
-    date = DateTimeField(null=True)
-
-    class Meta:
-        table_name = 'blockk'
+        table_name = 'blockcomment'
 
 class Blockmainstock(BaseModel):
     blockid = CharField(null=True)
@@ -56,48 +34,99 @@ class Blockmainstock(BaseModel):
         table_name = 'blockmainstock'
 
 class Btos(BaseModel):
-    blockid = IntegerField(null=True)
+    blockid = CharField(null=True)
     bsid = AutoField()
-    stockid = IntegerField(null=True)
+    stockid = CharField(null=True)
 
     class Meta:
         table_name = 'btos'
 
-class Sotck(BaseModel):
-    stockid = AutoField()
-    stockname = CharField(null=True)
+class Stockdata(BaseModel):
+    amount = FloatField(null=True)
+    amplitude = FloatField(null=True)
+    chg = FloatField(null=True)
+    current = FloatField(null=True)
+    current_year_percent = FloatField(null=True)
+    market_capital = FloatField(null=True)
+    name = CharField(null=True)
+    pb = FloatField(null=True)
+    pe = FloatField(null=True)
+    percent = FloatField(null=True)
+    stockid = CharField(null=True)
+    turnover_rate = FloatField(null=True)
+    volume = FloatField(null=True)
+    volume_ratio = FloatField(null=True)
 
     class Meta:
-        table_name = 'sotck'
+        table_name = 'stockdata'
+        primary_key = False
 
-class Stockhistory(BaseModel):
-    beginprice = FloatField(null=True)
-    date = DateTimeField(null=True)
-    endprice = FloatField(null=True)
-    endpricebefore = FloatField(null=True)
-    increase = FloatField(null=True)
-    maxprice = FloatField(null=True)
-    minprice = FloatField(null=True)
-    shid = AutoField()
-    stockid = IntegerField(null=True)
-    stockname = FloatField(null=True)
-
-    class Meta:
-        table_name = 'stockhistory'
-
-class Stockicommit(BaseModel):
+class Stockicomment(BaseModel):
     author = CharField(null=True)
     detail = CharField(null=True)
     scid = AutoField()
-    stockid = IntegerField(null=True)
+    stockid = CharField(null=True)
 
     class Meta:
-        table_name = 'stockicommit'
+        table_name = 'stockicomment'
 
-class Stockk(BaseModel):
-    skid = AutoField()
-    stockid = IntegerField(null=True)
+class Thsblock(BaseModel):
+    blockid = CharField(primary_key=True)
+    name = CharField(null=True)
 
     class Meta:
-        table_name = 'stockk'
+        table_name = 'thsblock'
+
+class Thsblockdata(BaseModel):
+    account = FloatField(null=True)
+    begin = FloatField(null=True)
+    blockid = CharField(primary_key=True)
+    end = FloatField(null=True)
+    input = FloatField(null=True)
+    max = FloatField(null=True)
+    min = FloatField(null=True)
+    percent = CharField(null=True)
+    rank = CharField(null=True)
+    volume = FloatField(null=True)
+
+    class Meta:
+        table_name = 'thsblockdata'
+
+class Thsbtos(BaseModel):
+    blockid = CharField(null=True)
+    stockid = CharField(null=True)
+
+    class Meta:
+        table_name = 'thsbtos'
+
+class Thsstockdata(BaseModel):
+    amount_ratio = CharField(null=True)
+    amplitude = CharField(null=True)
+    changehand = CharField(null=True)
+    chg = CharField(null=True)
+    current = CharField(null=True)
+    flow = CharField(null=True)
+    flowmarket = CharField(null=True)
+    name = CharField(null=True)
+    pe = CharField(null=True)
+    percent = CharField(null=True)
+    speed = CharField(null=True)
+    stockid = CharField(primary_key=True)
+    volume = CharField(null=True)
+
+    class Meta:
+        table_name = 'thsstockdata'
+
+class Thsstockkline(BaseModel):
+    amount = FloatField(null=True)
+    begin = FloatField(null=True)
+    date = CharField(null=True)
+    end = FloatField(null=True)
+    max = FloatField(null=True)
+    min = FloatField(null=True)
+    stockid = IntegerField(null=True)
+    volume = FloatField(null=True)
+
+    class Meta:
+        table_name = 'thsstockkline'
 
