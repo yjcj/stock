@@ -90,3 +90,4 @@ if __name__=='__main__':
     thsGetBlock()
     getstockbyid("881104")
     getklinebystockid("300739")
+    # fetch_stock_comment(symbol, start_time)
