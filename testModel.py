@@ -59,7 +59,6 @@ class Stockdata(BaseModel):
 
     class Meta:
         table_name = 'stockdata'
-        primary_key = False
 
 class Stockicomment(BaseModel):
     author = CharField(null=True)
@@ -92,6 +91,19 @@ class Thsblockdata(BaseModel):
     class Meta:
         table_name = 'thsblockdata'
 
+class Thsblockkline(BaseModel):
+    amount = CharField(null=True)
+    begin = CharField(null=True)
+    blockid = CharField(null=True)
+    date = CharField(null=True)
+    end = CharField(null=True)
+    max = CharField(null=True)
+    min = CharField(null=True)
+    volume = CharField(null=True)
+
+    class Meta:
+        table_name = 'thsblockkline'
+
 class Thsbtos(BaseModel):
     blockid = CharField(null=True)
     stockid = CharField(null=True)
@@ -116,17 +128,4 @@ class Thsstockdata(BaseModel):
 
     class Meta:
         table_name = 'thsstockdata'
-
-class Thsstockkline(BaseModel):
-    amount = FloatField(null=True)
-    begin = FloatField(null=True)
-    date = CharField(null=True)
-    end = FloatField(null=True)
-    max = FloatField(null=True)
-    min = FloatField(null=True)
-    stockid = IntegerField(null=True)
-    volume = FloatField(null=True)
-
-    class Meta:
-        table_name = 'thsstockkline'
 
