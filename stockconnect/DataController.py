@@ -97,7 +97,7 @@ def getklinebyblockid(id):
                                   volume=ele[5], amount=ele[6])
 if __name__=='__main__':
     print("init!!")
-    # getStockAndBlock()
+    getStockAndBlock()
     thsGetBlock()
     # getstockbyid("881104")
     # getklinebystockid("881109")
