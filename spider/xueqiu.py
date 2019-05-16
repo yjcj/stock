@@ -3,7 +3,8 @@ import json
 import requests
 import re
 import time
-import utils
+# import utils
+from spider import utils
 
 
 def fetch_industry_list():
