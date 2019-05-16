@@ -112,6 +112,9 @@ def fetch_stock_comment(symbol, start_time):
                          headers=utils.json_header("xueqiu.com", "https://xueqiu.com/S/%s" % symbol),
                          params=params, cookies=r1.cookies)
         json_data = json.loads(r.text)
+        if "error_description" in json_data.keys():
+            continue
+        # print json_data
         if len(json_data["list"]) == 0:
             return result
         for item in json_data["list"]:
@@ -120,3 +123,4 @@ def fetch_stock_comment(symbol, start_time):
             else:
                 result.append(item)
         params["page"] += 1
+        time.sleep(2)

@@ -17,3 +17,7 @@
 - `fetch_industry_info(ins_code)`: 行业板块数据
 - `fetch_stocks(ins_code)`: 抓取某个行业的股票列表
 - `fetch_ind_kline(ins_code)`: 返回行业K线
+
+### iwencai（i问财）
+- `fetch_stock_news(code, start_date, end_date)`: 获取时间段内的新闻
+- `fetch_stock_pubnote(code, start_date, end_date)`: 获取时间段内的公司公告
