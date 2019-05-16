@@ -10,7 +10,7 @@ class BaseModel(Model):
         database = database
 
 class Block(BaseModel):
-    blockid = AutoField()
+    blockid = CharField(null=True)
     blockname = CharField(null=True)
 
     class Meta:
