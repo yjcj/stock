@@ -49,7 +49,7 @@ def fetch_stocks(ins_code):
         r = requests.get("http://q.10jqka.com.cn/thshy/detail/field/199112/order/desc/page/%d/ajax/1/code/%s" % (page, ins_code),
                          headers=utils.html_header("q.10jqka.com.cn", None), cookies=utils.get_cookie("http://q.10jqka.com.cn/thshy/"))
         soup = BeautifulSoup(r.text, features="html.parser")
-        print r.text
+        # print r.text
         if len(soup.find_all("table")) == 0:
             return result
         for tr in soup.find_all("tr"):
