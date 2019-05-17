@@ -3,7 +3,6 @@
 -- Host: localhost    Database: fstock
 -- ------------------------------------------------------
 -- Server version	8.0.11
-
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
@@ -27,7 +26,7 @@ CREATE TABLE `block` (
   `blockid` varchar(45) DEFAULT NULL,
   `blockname` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=417 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=417 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -52,7 +51,7 @@ CREATE TABLE `blockcomment` (
   `author` varchar(45) DEFAULT NULL,
   `detail` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`bcid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -76,7 +75,7 @@ CREATE TABLE `blockmainstock` (
   `blockid` varchar(45) DEFAULT NULL,
   `stockid` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`bmsid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -100,7 +99,7 @@ CREATE TABLE `btos` (
   `stockid` varchar(45) DEFAULT NULL,
   `blockid` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`bsid`)
-) ENGINE=InnoDB AUTO_INCREMENT=11539 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11539 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -137,7 +136,7 @@ CREATE TABLE `stockdata` (
   `pe` double DEFAULT NULL,
   `id` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14846 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14846 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -163,7 +162,7 @@ CREATE TABLE `stockicomment` (
   `author` varchar(45) DEFAULT NULL,
   `detail` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`scid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -186,7 +185,7 @@ CREATE TABLE `thsblock` (
   `blockid` varchar(45) NOT NULL,
   `name` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`blockid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -218,7 +217,7 @@ CREATE TABLE `thsblockdata` (
   `input` double DEFAULT NULL,
   `account` double DEFAULT NULL,
   PRIMARY KEY (`blockid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -243,7 +242,7 @@ CREATE TABLE `thsbtos` (
   `blockid` varchar(45) DEFAULT NULL,
   `stockid` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -278,7 +277,7 @@ CREATE TABLE `thsstockdata` (
   `flowmarket` varchar(45) DEFAULT NULL,
   `pe` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`stockid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -294,12 +293,12 @@ UNLOCK TABLES;
 --
 -- Table structure for table `thsstockkline`
 --
-
 DROP TABLE IF EXISTS `thsstockkline`;
+DROP TABLE IF EXISTS `thsblockkline`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
-CREATE TABLE `thsstockkline` (
-  `stockid` int(11) DEFAULT NULL,
+CREATE TABLE `thsblockkline` (
+  `blockid` int(11) DEFAULT NULL,
   `date` varchar(45) DEFAULT NULL,
   `begin` double DEFAULT NULL,
   `max` double DEFAULT NULL,
@@ -309,7 +308,7 @@ CREATE TABLE `thsstockkline` (
   `amount` double DEFAULT NULL,
   `id` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=176 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=176 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
