@@ -14,6 +14,7 @@
 
 ### tenjqka（同花顺）
 - `fetch_industry_list()`: 获取同花顺行业列表
+- `fetch_industry_info(ins_code)`: 获取同花顺行业一览表
 - `fetch_industry_info(ins_code)`: 行业板块数据
 - `fetch_stocks(ins_code)`: 抓取某个行业的股票列表
 - `fetch_ind_kline(ins_code)`: 返回行业K线
