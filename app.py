@@ -64,5 +64,15 @@ def get_main_stock():
     return jsonify({'code': 1, 'data': data})
 
 
+# 获取板块龙头股列表
+# 所需参数：stockId, startDate, endDate
+@app.route('/getPubNote', methods=['GET'])
+def get_pub_note():
+    stock_id = request.args.get('stockId')
+    start_date = request.args.get('startDate')
+    end_date = request.args.get('endDate')
+    data = integration2.get_pub_note(stock_id, start_date, end_date)
+    return jsonify({'code': 1, 'data': data})
+
 if __name__ == '__main__':
     app.run()

@@ -25,6 +25,7 @@ def get_news_by_stock_id(stock_id, start_date, end_date):
     :return: news_data [标题，时间，链接地址]
     '''
     iwencai_data = iwencai.fetch_stock_news(stock_id, start_date, end_date)
+    # print(iwencai_data)
     news_data = []
     for item in iwencai_data:
         news_data.append({'title': item[0], 'time': item[1], 'link': item[2]})
@@ -38,5 +39,17 @@ def get_block_main_stock():
     query = testModel.Blockmainstock.select()
     main_stock_data = []
     for item in query:
-        main_stock_data.append({'blockid': item.blockid, 'stockid': item.stockid})
+        inner_query1 = testModel.Thsblock.select().where(testModel.Thsblock.blockid == item.blockid).get()
+        inner_query2 = testModel.Thsstockdata.select().where(testModel.Thsstockdata.stockid == item.stockid).get()
+        main_stock_data.append({'blockid': item.blockid, 'blockname': inner_query1.name, 'stockid': item.stockid,
+                                'stockname': inner_query2.name})
     return main_stock_data
+
+
+def get_pub_note(stock_id, start_date, end_date):
+    iwencai_data = iwencai.fetch_stock_pubnote(stock_id, start_date, end_date)
+    print(iwencai_data)
+    pub_note_data = []
+    for item in iwencai_data:
+        pub_note_data.append({'title': item[0], 'time': item[1], 'link': item[2]})
+    return pub_note_data
