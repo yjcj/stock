@@ -1,6 +1,6 @@
 from peewee import *
 from selenium import webdriver
-from spider import tenjqka, tenjqka_stub
+from spider import tenjqka, tenjqka_stub, iwencai
 from spider.xueqiu import fetch_industry_list, fetch_stocks, fetch_stock_comment
 from testModel import *
 database = MySQLDatabase('fstock', **{'charset': 'utf8', 'use_unicode': True, 'host': 'localhost', 'user': 'root', 'password': 'Yy981211'})
@@ -97,8 +97,11 @@ def getklinebyblockid(id):
                                   volume=ele[5], amount=ele[6])
 if __name__=='__main__':
     print("init!!")
-    getStockAndBlock()
-    thsGetBlock()
+    # getStockAndBlock()
+    # thsGetBlock()
+    listn = iwencai.fetch_stock_news("000042","2019-05-05","2019-05-10")
+    for element in listn:
+        print(element)
     # getstockbyid("881104")
     # getklinebystockid("881109")
     # lists=fetch_stock_comment('SH603068', '2019-2-15')

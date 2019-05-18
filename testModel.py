@@ -41,6 +41,24 @@ class Btos(BaseModel):
     class Meta:
         table_name = 'btos'
 
+class News(BaseModel):
+    date = CharField(null=True)
+    stockid = CharField(null=True)
+    title = CharField(null=True)
+    url = CharField(null=True)
+
+    class Meta:
+        table_name = 'news'
+
+class Notice(BaseModel):
+    date = CharField(null=True)
+    stockid = CharField(null=True)
+    title = CharField(null=True)
+    url = CharField(null=True)
+
+    class Meta:
+        table_name = 'notice'
+
 class Stockdata(BaseModel):
     amount = FloatField(null=True)
     amplitude = FloatField(null=True)
