@@ -43,6 +43,8 @@ def get_all_block_data():
     block_data = []
     for data in query:
         inner_query = testModel.Thsblock.select().where(testModel.Thsblock.blockid == data.blockid).get()
+        # name = repr(inner_query.name)
+        # print(name)
         block_data.append(
             {'name': inner_query.name, 'blockid': data.blockid, 'begin': data.begin, 'end': data.end, 'min': data.min,
              'max': data.max, 'volume': data.volume, 'percent': data.percent, 'rank': data.rank, 'input': data.input,

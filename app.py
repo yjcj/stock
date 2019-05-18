@@ -1,8 +1,10 @@
 from flask import Flask, request, jsonify
 from dataintegration import dataintegration
 from dataintegration import integration2
+from flask_cors import *
 
 app = Flask(__name__)
+CORS(app, supports_credentials=True)
 
 
 # @app.route('/')
@@ -42,7 +44,8 @@ def get_block_k_line():
     data = integration2.get_block_kline_by_id(block_id)
     return jsonify({'code': 1, 'data': data})
 
-#根据stockId获取股票新闻
+
+# 根据stockId获取股票新闻
 # 所需参数：stockId, startDate, endDate
 @app.route('/getStockNews', methods=['GET'])
 def get_news():
@@ -52,8 +55,9 @@ def get_news():
     data = integration2.get_news_by_stock_id(stock_id, start_date, end_date)
     return jsonify({'code': 1, 'data': data})
 
-#获取板块龙头股列表
-#所需参数：无
+
+# 获取板块龙头股列表
+# 所需参数：无
 @app.route('/getMainStock', methods=['GET'])
 def get_main_stock():
     data = integration2.get_block_main_stock()
