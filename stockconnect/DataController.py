@@ -1,10 +1,13 @@
 from peewee import *
 from selenium import webdriver
-from spider import tenjqka, tenjqka_stub
+from spider import tenjqka, tenjqka_stub, iwencai
 from spider.xueqiu import fetch_industry_list, fetch_stocks, fetch_stock_comment
 from testModel import *
-database = MySQLDatabase('fstock', **{'charset': 'utf8', 'use_unicode': True, 'host': 'localhost', 'user': 'root', 'password': 'Yy981211'})
-liststock=[]
+
+database = MySQLDatabase('fstock', **{'charset': 'utf8', 'use_unicode': True, 'host': 'localhost', 'user': 'root',
+                                      'password': '123456'})
+liststock = []
+
 
 def getStockAndBlock():
     listI = fetch_industry_list()
@@ -14,7 +17,7 @@ def getStockAndBlock():
     flag = 0
     for element in listI:
         print(element)
-        b = Block.create(blockid=element[0],blockname=element[1])
+        b = Block.create(blockid=element[0], blockname=element[1])
         listS = fetch_stocks(element[0])
         for element1 in listS:
             for element2 in listt:
@@ -35,6 +38,8 @@ def getStockAndBlock():
                               pb=element1['pb'], current_year_percent=element1['current_year_percent'],
                               name=element1['name'],
                               market_capital=element1['market_capital'], pe=element1['pe_ttm'])
+
+
 def thsGetBlock():
     listb = tenjqka.fetch_industry_list()
     a = 0
@@ -60,21 +65,22 @@ def thsGetBlock():
         getstockbyid(ele[0])
         getklinebyblockid(ele[0])
     #
+
+
 def getstockbyid(id):
-        lists = tenjqka.fetch_stocks(id)
+    lists = tenjqka.fetch_stocks(id)
 
-        flag=0
+    flag = 0
 
-
-        for element in lists:
-            print(element)
-            bs= Thsbtos.create(blockid=id,stockid=element[0])
-            for ele in liststock:
-                if element[0]==ele[0]:
-                    flag=1
-            if flag==0:
-                liststock.append(element)
-                s = Thsstockdata.create(stockid=element[0],
+    for element in lists:
+        print(element)
+        bs = Thsbtos.create(blockid=id, stockid=element[0])
+        for ele in liststock:
+            if element[0] == ele[0]:
+                flag = 1
+        if flag == 0:
+            liststock.append(element)
+            s = Thsstockdata.create(stockid=element[0],
                                     name=element[1],
                                     current=element[2],
                                     percent=element[3],
@@ -87,18 +93,25 @@ def getstockbyid(id):
                                     flow=element[10],
                                     flowmarket=element[11],
                                     pe=element[12])
-            flag=0
+        flag = 0
+
+
 def getklinebyblockid(id):
     listk = tenjqka.fetch_ind_kline(id)
     for ele in listk:
         print(ele)
-        if ele!=[]:
-            sk = Thsblockkline.create(stockid=id, date=ele[0], begin=ele[1], max=ele[2], min=ele[3], end=ele[4],
-                                  volume=ele[5], amount=ele[6])
-if __name__=='__main__':
+        if ele != []:
+            sk = Thsblockkline.create(blockid=id, date=ele[0], begin=ele[1], max=ele[2], min=ele[3], end=ele[4],
+                                      volume=ele[5], amount=ele[6])
+
+
+if __name__ == '__main__':
     print("init!!")
-    getStockAndBlock()
-    thsGetBlock()
+    # getStockAndBlock()
+    # thsGetBlock()
+    listn = iwencai.fetch_stock_news("000042","2019-05-05","2019-05-10")
+    for element in listn:
+        print(element)
     # getstockbyid("881104")
     # getklinebystockid("881109")
     # lists=fetch_stock_comment('SH603068', '2019-2-15')

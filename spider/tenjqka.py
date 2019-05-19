@@ -2,7 +2,7 @@
 from bs4 import BeautifulSoup
 import requests
 import re
-import utils
+from spider import utils
 
 
 def fetch_industry_list():

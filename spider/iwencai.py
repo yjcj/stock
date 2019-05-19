@@ -3,8 +3,8 @@ from selenium import webdriver
 from bs4 import BeautifulSoup
 import re
 import requests
-import utils
 import urllib
+from spider import utils
 
 
 def fetch_stock_news(code, start_date, end_date):
