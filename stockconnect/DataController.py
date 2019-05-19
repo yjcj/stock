@@ -1,6 +1,6 @@
 from peewee import *
 from selenium import webdriver
-from spider import tenjqka, tenjqka_stub, iwencai
+from spider import tenjqka, tenjqka_stub, iwencai, ts_data
 from spider.xueqiu import fetch_industry_list, fetch_stocks, fetch_stock_comment
 from testModel import *
 
@@ -56,14 +56,14 @@ def thsGetBlock():
     print(a)
     print(len(listt))
     for ele in listt:
-        thsb = Thsblock.create(blockid=ele[0], name=ele[1])
-        blockinfo = tenjqka.fetch_industry_info(ele[0])
-        thsbd = Thsblockdata.create(blockid=ele[0], begin=blockinfo['今开'], end=blockinfo['昨收'],
-                                    min=blockinfo['最低'], max=blockinfo['最高'], volume=blockinfo['成交量(万手)'],
-                                    percent=blockinfo['板块涨幅'], rank=blockinfo['涨幅排名'], input=blockinfo['资金净流入(亿)'],
-                                    account=blockinfo['成交额(亿)'])
+        # thsb = Thsblock.create(blockid=ele[0], name=ele[1])
+        # blockinfo = tenjqka.fetch_industry_info(ele[0])
+        # thsbd = Thsblockdata.create(blockid=ele[0], begin=blockinfo['今开'], end=blockinfo['昨收'],
+        #                             min=blockinfo['最低'], max=blockinfo['最高'], volume=blockinfo['成交量(万手)'],
+        #                             percent=blockinfo['板块涨幅'], rank=blockinfo['涨幅排名'], input=blockinfo['资金净流入(亿)'],
+        #                             account=blockinfo['成交额(亿)'])
         getstockbyid(ele[0])
-        getklinebyblockid(ele[0])
+        # getklinebyblockid(ele[0])
     #
 
 
@@ -80,19 +80,20 @@ def getstockbyid(id):
                 flag = 1
         if flag == 0:
             liststock.append(element)
-            s = Thsstockdata.create(stockid=element[0],
-                                    name=element[1],
-                                    current=element[2],
-                                    percent=element[3],
-                                    chg=element[4],
-                                    speed=element[5],
-                                    changehand=element[6],
-                                    amount_ratio=element[7],
-                                    amplitude=element[8],
-                                    volume=element[9],
-                                    flow=element[10],
-                                    flowmarket=element[11],
-                                    pe=element[12])
+            # s = Thsstockdata.create(stockid=element[0],
+            #                         name=element[1],
+            #                         current=element[2],
+            #                         percent=element[3],
+            #                         chg=element[4],
+            #                         speed=element[5],
+            #                         changehand=element[6],
+            #                         amount_ratio=element[7],
+            #                         amplitude=element[8],
+            #                         volume=element[9],
+            #                         flow=element[10],
+            #                         flowmarket=element[11],
+            #                         pe=element[12])
+            getklinebystockid(element[0])
         flag = 0
 
 
@@ -104,12 +105,24 @@ def getklinebyblockid(id):
             sk = Thsblockkline.create(blockid=id, date=ele[0], begin=ele[1], max=ele[2], min=ele[3], end=ele[4],
                                       volume=ele[5], amount=ele[6])
 
-
+def getklinebystockid(id):
+    listn = ts_data.get_kline(id, "2019-04-18", "2019-05-18")
+    for element in listn:
+        print(element)
+        sk = Stockkline.create(stockid=id,date=element[0],
+                               open=element[1],high=element[2],
+                               close=element[3],
+                               low=element[4],
+                               volume=element[5],
+                               price_change=element[6],
+                               p_change=element[7]
+                               )
 if __name__ == '__main__':
     print("init!!")
+    # getklinebyblockid("000042")
     # getStockAndBlock()
     # thsGetBlock()
-    listn = iwencai.fetch_stock_news("000042","2019-05-05","2019-05-10")
+    listn = ts_data.get_kline("000029","2019-05-05","2019-05-10")
     for element in listn:
         print(element)
     # getstockbyid("881104")

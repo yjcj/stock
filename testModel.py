@@ -87,6 +87,20 @@ class Stockicomment(BaseModel):
     class Meta:
         table_name = 'stockicomment'
 
+class Stockkline(BaseModel):
+    close = FloatField(null=True)
+    date = CharField(null=True)
+    high = FloatField(null=True)
+    low = FloatField(null=True)
+    open = FloatField(null=True)
+    p_change = FloatField(null=True)
+    price_change = FloatField(null=True)
+    stockid = CharField(null=True)
+    volume = FloatField(null=True)
+
+    class Meta:
+        table_name = 'stockkline'
+
 class Thsblock(BaseModel):
     blockid = CharField(primary_key=True)
     name = CharField(null=True)
