@@ -56,9 +56,9 @@ def get_block_k_line():
 @app.route('/getStockNews', methods=['GET'])
 def get_news():
     stock_id = request.args.get('stockId')
-    start_date = request.args.get('startDate')
-    end_date = request.args.get('endDate')
-    data = integration2.get_news_by_stock_id(stock_id, start_date, end_date)
+    # start_date = request.args.get('startDate')
+    # end_date = request.args.get('endDate')
+    data = integration2.get_news_by_stock_id(stock_id, '2019-05-01', '2019-05-10')
     return jsonify({'code': 1, 'data': data})
 
 
@@ -75,9 +75,9 @@ def get_main_stock():
 @app.route('/getPubNote', methods=['GET'])
 def get_pub_note():
     stock_id = request.args.get('stockId')
-    start_date = request.args.get('startDate')
-    end_date = request.args.get('endDate')
-    data = integration2.get_pub_note(stock_id, start_date, end_date)
+    # start_date = request.args.get('startDate')
+    # end_date = request.args.get('endDate')
+    data = integration2.get_pub_note(stock_id, '2019-05-01', '2019-05-10')
     return jsonify({'code': 1, 'data': data})
 
 
