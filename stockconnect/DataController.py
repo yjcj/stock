@@ -56,14 +56,14 @@ def thsGetBlock():
     print(a)
     print(len(listt))
     for ele in listt:
-        # thsb = Thsblock.create(blockid=ele[0], name=ele[1])
-        # blockinfo = tenjqka.fetch_industry_info(ele[0])
-        # thsbd = Thsblockdata.create(blockid=ele[0], begin=blockinfo['今开'], end=blockinfo['昨收'],
-        #                             min=blockinfo['最低'], max=blockinfo['最高'], volume=blockinfo['成交量(万手)'],
-        #                             percent=blockinfo['板块涨幅'], rank=blockinfo['涨幅排名'], input=blockinfo['资金净流入(亿)'],
-        #                             account=blockinfo['成交额(亿)'])
+        thsb = Thsblock.create(blockid=ele[0], name=ele[1])
+        blockinfo = tenjqka.fetch_industry_info(ele[0])
+        thsbd = Thsblockdata.create(blockid=ele[0], begin=blockinfo['今开'], end=blockinfo['昨收'],
+                                    min=blockinfo['最低'], max=blockinfo['最高'], volume=blockinfo['成交量(万手)'],
+                                    percent=blockinfo['板块涨幅'], rank=blockinfo['涨幅排名'], input=blockinfo['资金净流入(亿)'],
+                                    account=blockinfo['成交额(亿)'])
         getstockbyid(ele[0])
-        # getklinebyblockid(ele[0])
+        getklinebyblockid(ele[0])
     #
 
 
@@ -80,19 +80,19 @@ def getstockbyid(id):
                 flag = 1
         if flag == 0:
             liststock.append(element)
-            # s = Thsstockdata.create(stockid=element[0],
-            #                         name=element[1],
-            #                         current=element[2],
-            #                         percent=element[3],
-            #                         chg=element[4],
-            #                         speed=element[5],
-            #                         changehand=element[6],
-            #                         amount_ratio=element[7],
-            #                         amplitude=element[8],
-            #                         volume=element[9],
-            #                         flow=element[10],
-            #                         flowmarket=element[11],
-            #                         pe=element[12])
+            s = Thsstockdata.create(stockid=element[0],
+                                    name=element[1],
+                                    current=element[2],
+                                    percent=element[3],
+                                    chg=element[4],
+                                    speed=element[5],
+                                    changehand=element[6],
+                                    amount_ratio=element[7],
+                                    amplitude=element[8],
+                                    volume=element[9],
+                                    flow=element[10],
+                                    flowmarket=element[11],
+                                    pe=element[12])
             getklinebystockid(element[0])
         flag = 0
 
@@ -117,18 +117,15 @@ def getklinebystockid(id):
                                price_change=element[6],
                                p_change=element[7]
                                )
+
+def getblockmainstock():
+    listb = tenjqka.fetch_industry_table()
+    for element in listb:
+        print(element)
+        bm = Blockmainstock.create(blockid=element[1], stockid=element[9])
 if __name__ == '__main__':
     print("init!!")
     # getklinebyblockid("000042")
-    # getStockAndBlock()
-    # thsGetBlock()
-    listn = ts_data.get_kline("000029","2019-05-05","2019-05-10")
-    for element in listn:
-        print(element)
-    # getstockbyid("881104")
-    # getklinebystockid("881109")
-    # lists=fetch_stock_comment('SH603068', '2019-2-15')
-    # print("????")
-    # for ele in lists:
-    #     print(ele)
-    #     break;
+    getStockAndBlock()
+    thsGetBlock()
+    getblockmainstock()

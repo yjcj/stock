@@ -16,7 +16,7 @@ def fetch_stock_news(code, start_date, end_date):
     :return: list[list[]]
     每个元素：[标题, 发布时间, 文章链接]
     """
-    print "--开始抓取股票新闻（{}）--".format(code)
+    print("--开始抓取股票新闻（{}）--".format(code))
     result = []
 
     params = {
@@ -44,7 +44,7 @@ def fetch_stock_news(code, start_date, end_date):
             soup = soup.select("#hidelist")[0]
         if not soup.find_all("td"):
             # 页码超出范围无搜索结果时返回结果
-            print "--结束抓取--"
+            print ("--结束抓取--")
             return result
         for node in soup.find_all("td"):
             if "class" in node.attrs:
@@ -56,7 +56,7 @@ def fetch_stock_news(code, start_date, end_date):
             result.append([text, time, link])
 
         params["p"] += 1
-        print len(result), result[-1][1]
+        print (len(result), result[-1][1])
 
 
 def fetch_stock_pubnote(code, start_date, end_date):
@@ -96,7 +96,7 @@ def fetch_stock_pubnote(code, start_date, end_date):
             result.append([text, time, link])
 
         params["p"] += 1
-        print len(result), result[-1][1]
+        print (len(result), result[-1][1])
 
 
 def fetch_stock_forecast(code):
