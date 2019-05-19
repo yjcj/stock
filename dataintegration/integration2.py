@@ -41,9 +41,9 @@ def get_block_main_stock():
     query = testModel.Blockmainstock.select()
     main_stock_data = []
     for item in query:
-        inner_query1 = testModel.Thsblock.select().where(testModel.Thsblock.blockid == item.blockid).get()
-        inner_query2 = testModel.Thsstockdata.select().where(testModel.Thsstockdata.stockid == item.stockid).get()
-        main_stock_data.append({'blockid': item.blockid, 'blockname': inner_query1.name, 'stockid': item.stockid,
+        inner_query1 = testModel.Thsblock.select().where(testModel.Thsblock.name == item.blockid).get()
+        inner_query2 = testModel.Thsstockdata.select().where(testModel.Thsstockdata.name == item.stockid).get()
+        main_stock_data.append({'blockid': inner_query1.blockid, 'blockname': inner_query1.name, 'stockid': inner_query2.stockid,
                                 'stockname': inner_query2.name})
     return main_stock_data
 

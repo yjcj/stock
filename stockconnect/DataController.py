@@ -126,6 +126,6 @@ def getblockmainstock():
 if __name__ == '__main__':
     print("init!!")
     # getklinebyblockid("000042")
-    getStockAndBlock()
-    thsGetBlock()
+    # getStockAndBlock()
+    # thsGetBlock()
     getblockmainstock()
