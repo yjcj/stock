@@ -19,6 +19,8 @@ def get_kline(code, start_date, end_date):
 
 def _dataframe_to_list(df):
     result = []
+    if not df:
+        return []
     for index, row in df.iterrows():
         result.append([index] + row.tolist())
     return result
