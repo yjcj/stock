@@ -2,6 +2,12 @@ from flask import Flask, request, jsonify
 from dataintegration import dataintegration
 from dataintegration import integration2
 from flask_cors import *
+from spider import iwencai
+
+# from gevent import monkey
+# from gevent.pywsgi import WSGIServer
+# monkey.patch_all()
+
 
 app = Flask(__name__)
 CORS(app, supports_credentials=True)
@@ -64,7 +70,7 @@ def get_main_stock():
     return jsonify({'code': 1, 'data': data})
 
 
-# 获取板块龙头股列表
+# 获取股票公告列表
 # 所需参数：stockId, startDate, endDate
 @app.route('/getPubNote', methods=['GET'])
 def get_pub_note():
@@ -74,5 +80,38 @@ def get_pub_note():
     data = integration2.get_pub_note(stock_id, start_date, end_date)
     return jsonify({'code': 1, 'data': data})
 
+
+# 获取股票评论
+# 所需参数：stockId, page
+@app.route('/getStockComment', methods=['GET'])
+def get_stock_comment():
+    stock_id = request.args.get('stockId')
+    page = request.args.get('page')
+    data = integration2.get_stock_comment(stock_id, page)
+    return jsonify(data)
+
+
+# 获取股票K线
+# 所需参数：stockId
+@app.route('/getStockKLine', methods=['GET'])
+def get_stock_kline():
+    stock_id = request.args.get('stockId')
+    data = integration2.get_stock_kline(stock_id)
+    return jsonify({'code': 1, 'data': data})
+
+
+# 获取股票预测
+# 所需参数：stockId
+@app.route('/getStockPrediction', methods=['GET'])
+def get_stock_prediction():
+    stock_id = request.args.get('stockId')
+    predict_data = iwencai.fetch_stock_forecast(stock_id)
+    data = []
+    data.append({'time': predict_data[0], 'text': predict_data[1]})
+    return jsonify({'code': 1, 'data': data})
+
+
 if __name__ == '__main__':
+    # http_server = WSGIServer(('',5000),app)
+    # http_server.serve_forever()
     app.run()

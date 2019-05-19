@@ -117,7 +117,7 @@ def fetch_stock_forecast(code):
     options = webdriver.ChromeOptions()
     options.add_argument('headless')
     driver = webdriver.Chrome(chrome_options=options)
-    driver.get("http://www.iwencai.com/stockpick/search?" + urllib.urlencode(params))
+    driver.get("http://www.iwencai.com/stockpick/search?" + urllib.parse.urlencode(params))
     time = driver.find_element_by_css_selector('div.diagno_date')
     comment = driver.find_element_by_css_selector('ul.item_list')
     return [time.text, comment.text]
