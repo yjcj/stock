@@ -67,7 +67,7 @@ def fetch_stocks(ins_code):
         r = requests.get("http://q.10jqka.com.cn/thshy/detail/field/199112/order/desc/page/%d/ajax/1/code/%s" % (page, ins_code),
                          headers=utils.html_header("q.10jqka.com.cn", None), cookies=utils.get_cookie("http://q.10jqka.com.cn/thshy/"))
         soup = BeautifulSoup(r.text, features="html.parser")
-        # print r.text
+        # print r.url
         if len(soup.find_all("table")) == 0:
             return result
         for tr in soup.find_all("tr"):
@@ -81,15 +81,28 @@ def fetch_stocks(ins_code):
         page += 1
 
 
-def fetch_ind_kline(ins_code):
+def fetch_ind_kline(ins_code, start=None):
     """
     返回行业K线，此方法需要使用selenium
     :param ins_code: 行业代码
     :return: list[list[]]
     每一项为[日期（格式示例20190515）, 开盘价, 最高, 最低价, 收盘价, 成交量, 成交额]
     """
-    conn = requests.session()
-    r = conn.get("http://d.10jqka.com.cn/v4/line/bk_{}/01/2019.js".format(ins_code),
-                 headers=utils.html_header("d.10jqka.com.cn", "http://q.10jqka.com.cn/thshy/detail/code/{}/".format(ins_code)),
-                 cookies=utils.get_cookie("http://q.10jqka.com.cn/thshy/"))
-    return [data.split(",")[:-2] for data in r.text[47:-3].split(";")]
+    if start is None:
+        start = "20190101"
+    start_year = int(start[0:4])
+    result = []
+
+    while start_year <= 2019:
+        conn = requests.session()
+        r = conn.get("http://d.10jqka.com.cn/v4/line/bk_{}/01/{}.js".format(ins_code, start_year),
+                     headers=utils.html_header("d.10jqka.com.cn",
+                                               "http://q.10jqka.com.cn/thshy/detail/code/{}/".format(ins_code)),
+                     cookies=utils.get_cookie("http://q.10jqka.com.cn/thshy/"))
+        result.extend([data.split(",")[:-2] for data in r.text[47:-3].split(";")])
+        start_year += 1
+
+    def cmp(l):
+        return l[0] >= start
+
+    return filter(cmp, result)
