@@ -136,17 +136,26 @@
           this.$router.push({path:'/stockInfo'})
         },
 
+        getLeadingStockKLine(){
+          let stockId = this.leadingStock.data.data.id;
+          this.$axios.get("http://127.0.0.1:5000/getStockKLine?stockId=" + stockId)
+            .then(res => {
+              console.log(res);
+              this.kLine1 = res.data.data
+            })
+            .catch(err => {
+              console.log(err)
+            });
+        },
+
         drawKLine(){
           //从后端获取数据
+          this.getLeadingStockKLine();
           let blockId = localStorage.getItem("blockId");
           this.$axios("http://127.0.0.1:5000/getKLineByBlock?blockId=" + blockId)
             .then(res => {
               console.log(res);
-              //todo
-              //接收后端返回的数据，存疑
-              this.kLine0 = res.data.data[0];
-              this.kLine1 = res.data.data[1];
-
+              this.kLine0 = res.data.data;
               let data0 = splitData(this.kLine0);
               let data1 = splitData(this.kLine1);
 
