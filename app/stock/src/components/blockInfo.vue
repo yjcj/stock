@@ -106,7 +106,7 @@
       },
 
       methods: {
-        getStocks() {
+        getLeadingStock() {
           let blockId = localStorage.getItem("blockId");
           this.$axios("http://127.0.0.1:5000/getLeadingStockByBlock?blockId=" + blockId)
             .then(res => {
