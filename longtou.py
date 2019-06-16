@@ -24,8 +24,8 @@ def get_daily_stock(ind_code, start=None):
             dict[daily_data[0]].append((stock_code, daily_data[7]))
     # print(dict)
 
-    for date, p_list in dict.iteritems():
-        p_list = sorted(p_list, lambda x, y: -cmp(x[1], y[1]))
+    for date, p_list in dict.items():
+        p_list = sorted(p_list, key=cmp_to_key(lambda a, b: b[1] - a[1]))
         result[date] = p_list[0][0]
 
     return result
@@ -40,7 +40,7 @@ def get_stock_count(ind_code, start=None):
     """
     dict = get_daily_stock(ind_code, start)
     result = {}
-    for date, value in dict.iteritems():
+    for date, value in dict.items():
         if value not in result.keys():
             result[value] = 1
         else:
